@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifying Html Forms With JAvascript</title>
+    <Style>
+
+        /* this will reset over browser default padding and mergin to zero pixel */
+        *{
+            margin: 0px;
+            padding:0px;
+        }
+        /* Styling for body tag */
+        body{
+            background-color: gray;
+            color: white;
+            background:url('./images/p3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100%;
+        }
+        /* display flex is used here, but in actual it's properties are not as such applied */
+        .container{
+            display: flex;
+        }
+        /* This is a box on the left side , where we can place refrence to over web page for now it is left blanked */
+        .item1{
+            padding:0px 20% 20% 20%;
+        }
+        /* Font size for over heading h1*/
+        .item2 h1{
+            font-family: cursive;
+            text-transform: uppercase;
+            letter-spacing: .1rem;
+        }
+        /* Font size for over heading h2*/
+        .item2 h2{
+            font-size: 3rem;
+        }
+        /* Style for input tag */
+        .item2 input{
+            padding:10px 19% 10px 1%;
+            margin-top: 4px;
+            background-color:rgb(156,124,124) ;
+            color:white;
+        }
+        /* Styling for password input   */
+        .item2 .pass{
+            padding: 10px 75px 10px 5px;
+        }
+        /* styling for div inside item2 class */
+        .item2 div{
+            font-family: sans-serif;
+            margin-top: 24px;
+            font-size: 1.2rem;
+        }
+        /* styling for span inside div */
+        .item2 div span{
+            margin-right:100px;
+        }
+        /* advance selector , selecting input type=submit and styling */
+        .item2 input[type='submit']
+        {
+            border-radius:20px;
+            padding-left: 17%;
+            transition: .3s ease-in-out;
+            background-color: crimson;
+            border: 1px solid crimson;
+            transition-property: box-shadow;
+        }
+        /* hover Effect on submit */
+        .item2 input[type='submit']:hover
+        {
+            box-shadow: 2px 2px 10px crimson;
+        }
+    </Style>
+</head>
+<body>
+    <!-- Main Class of container  -->
+    <div class="container">
+
+        <!-- in it we can add refrence to over website on the left,intentially left blanked -->
+        <div class="item1"></div>
+
+        <!-- Our form is inside this div -->
+        <div class="item2">
+            <form action="index3.html" onsubmit="return validate()">
+                <h1>Coding Pen</h1>
+                <h2>Sign Up</h2>
+                <div>Name</div>
+                <input type="text" required>
+                <div>Choose a Username</div>
+                <input type="text" required>
+                <div>Enter Your Age:: <input type="number" min="0"</div>
+                <div>Email</div>
+                <input type="email" >
+                <div>
+                    <span>Choose Password</span>
+                    Enter Password Again
+                </div>
+                <input type="password" class="pass" id="pass1" name="p1">
+                <input type="password" class="pass" id="pass2" name="p1" onblur="Passcheck()">
+                <p id="password"></p>
+                <div>
+                    <p>By Pressing this, You agree to term and Condition<input type="checkbox" ></p>
+                </div>
+                <div>
+                    <input type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // For the verification of Password matching
+    
+        function Passcheck()
+        {
+            let val1=document.getElementById('pass1').value;
+            let val2=document.getElementById('pass2').value;
+            console.log(val1);
+            console.log(val2);
+            if(val1.length==0 || val2.length==0)
+            {
+                let p= document.getElementById('password');
+                p.innerHTML= "Password field cannot be Empty";
+                p.style.color= 'red';
+                return -1;
+            }
+            else if(val1!=val2)
+            {
+                let p= document.getElementById('password');
+                p.style.color= 'red';
+                p.innerHTML= "The password doesn't Match";
+                return 0;
+            }
+            else
+            {
+                let p= document.getElementById('password');
+                p.style.color='green';
+                p.style.fontWeight='bold';
+                p.style.textTransform='uppercase';
+                p.innerHTML= "Verified";
+               return 1;
+            }
+        }
+
+        // validation before submiting form
+        function validate()
+        {
+           let check= Passcheck();
+           if(check==1)
+           return true;
+           else if(check==-1)
+           {
+            document.getElementById('password').innerHTML= 'Please Enter Password to Submit';
+               return false;
+           }
+           else if(check==0)
+           {
+               document.getElementById('password').innerHTML= 'To Submit both password must be same';
+               return false;
+           }
+        }
+    </script>
+</body>
+</html>
